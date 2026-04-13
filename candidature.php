@@ -7,12 +7,13 @@ $filiere   = '';
 $motivation = '';
 $erreurs   = [];
 $reglement = '';
-//$confemail='';
+$confemail='';
 
 if ($_SERVER["REQUEST_METHOD"]==="POST"):
     $prenom    = $_POST["prenom"]??"";
     $nom       = $_POST["nom"]??"";
     $email     = $_POST["email"]??"";
+    $confemail = $_POST["confemail"]??"";
     $age       = $_POST["age"]??"";
     $filiere   = $_POST["filiere"]??"";
     $motivation = $_POST["motivation"]??"";
@@ -26,6 +27,10 @@ if ($_SERVER["REQUEST_METHOD"]==="POST"):
     }
     if (empty($email)|| !filter_var($email,FILTER_VALIDATE_EMAIL)){
         $erreurs[]="L'adresse email est invalide.";
+    }
+    if ( $confemail!==$email){
+        $erreurs[]="Les deux adresses email ne correspondent pas.";
+        
     }
     if (empty($age)||!is_numeric($age)||$age<16 ||$age>30){
         //même si je pense qu'on pourrait nous passer de empty($age): !is_numeric faisant le travail
@@ -137,6 +142,9 @@ endif;
 
                 <label for="email">Email:</label>
                 <input type="text" name="email" id="email" value="<?php echo $email; ?>" placeholder="ex:email@gmail.com">
+
+                <label for="confemail">Confirmez votre email:</label>
+                <input type="text" name="confemail" id="confemail" value="<?php echo $confemail; ?>" >
 
                 <label for="mtv">Motivation:</label>
                 <!-- impossible de modéliser en temps réel le nombre de lettres sans javacript, par contre une vérification php et contrainte HTML ont été mises en place  -->
