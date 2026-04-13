@@ -54,8 +54,33 @@ endif;
     <title>Document</title>
 </head>
 <body>
+    <?php if(empty($erreurs) && $_SERVER['REQUEST_METHOD']==='POST'):?>
+          <h1>Candidature reçue!</h1>
+          <br>
+          <ul>
+            <li>Prénom: <?php echo $prenom;?></li>
+
+            <li>Nom: <?php echo $nom;?></li>
+
+            <li>Email: <?php echo $email;?></li>
+
+            <li>Age: <?php echo $age;?></li>   
+            
+            <li>Filière: <?php echo $filiere;?></li>
+
+            <li>Lettre de motivation: <?php echo $motivation;?></li>
+            
+          </ul>
+          <br>
+          <p>Votre candidature a bien été enregistrée.Nous vous contacterons à l'adresse indiquée.</p>
+
+
+
+    <?php else:?>
+
         <?php if (!empty($erreurs)&& $_SERVER['REQUEST_METHOD']==="POST"):
          ?>
+         <!-- j'ai ajouté une verfi de POST car je me suis dite: et si empty était TRUE mais pas POST, ça impliquera de passer directement au else,qui ,sans la verf POST, s'activera automatiquement  -->
 
         <ul class="erreurs">
             <?php foreach($erreurs as $e):?>
@@ -124,5 +149,14 @@ endif;
         
             </form>
         </div>
-        
+    <?php endif; ?>
+
+    <footer>
+        <?php if(empty($erreurs) && $_SERVER['REQUEST_METHOD']==='POST'):?>
+            <nav>
+                <a href="candidature.php">Cliquez sur ce lien pour recharger la page et soumettre une nouvelle candidature.</a>
+            </nav>
+        <?php endif;?>
+    </footer> 
+
 </body>
